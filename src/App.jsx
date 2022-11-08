@@ -1,9 +1,35 @@
 import { useState } from "react";
+import {
+  Anchor as IconAnchor,
+  Gitlab as IconGitlab,
+  Award as IconAward,
+} from "react-feather";
 
-function AppCard() {
+const pricingPlanData = [
+  {
+    id: 1,
+    icon: IconAnchor,
+    title: "PIRATE PLAN",
+    price: "950.000",
+  },
+  {
+    id: 2,
+    icon: IconGitlab,
+    title: "CATMAN PLAN",
+    price: "1.590.000",
+  },
+  {
+    id: 3,
+    icon: IconAward,
+    title: "CHAMP PLAN",
+    price: "4.590.000",
+  },
+];
+
+function AppCard({ icon, title, price }) {
   return (
     <div className="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
-      <h3 className="mb-4 text-2xl font-semibold">Starter</h3>
+      <h3 className="mb-4 text-2xl font-semibold">{title}</h3>
       <p className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
         Best option for personal use &amp; for your next project.
       </p>
@@ -107,14 +133,16 @@ function AppCard() {
 function App() {
   const [count, setCount] = useState(0);
 
+  const pricingPlans = pricingPlanData.map((v) => (
+    <AppCard key={v.id} icon={v.icon} title={v.title} price={v.price} />
+  ));
+
   return (
     <div className="h-screen dark:bg-gray-900">
       <section>
         <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
           <div className="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
-            <AppCard></AppCard>
-            <AppCard></AppCard>
-            <AppCard></AppCard>
+            {pricingPlans}
           </div>
         </div>
       </section>
