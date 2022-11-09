@@ -64,16 +64,53 @@ function AppCard({ icon: Icon, title, price, color }) {
 }
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [selectedID, setSelectedID] = useState();
+
+  function handleSelect(id) {
+    setSelectedID(() => {
+      return selectedID == id ? null : id;
+    });
+  }
 
   const pricingPlans = pricingPlanData.map((v) => (
-    <AppCard
+    <div
+      onClick={() => handleSelect(v.id)}
       key={v.id}
-      icon={v.icon}
-      title={v.title}
-      price={v.price}
-      color={v.color}
-    />
+      className={`flex flex-col p-8 mx-auto w-80 text-center cursor-pointer text-gray-900 bg-white rounded-lg border border-gray-100 shadow 
+      ${
+        v.id == selectedID
+          ? ""
+          : "dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white"
+      }`}
+    >
+      <div className={`flex justify-center ${v.color} mb-12`}>
+        <v.icon></v.icon>
+      </div>
+      <h3 className="text-2xl font-medium">{v.title}</h3>
+      <div className="relative flex py-3">
+        <div className="flex-grow border-t border-gray-400"></div>
+      </div>
+      <ul role="list" className="space-y-4 font-light my-5">
+        <li className="flex justify-center space-x-3">
+          <span>Lifetime update</span>
+        </li>
+        <li className="flex justify-center space-x-3">
+          <span>Daily rewards</span>
+        </li>
+        <li className="flex justify-center space-x-3">
+          <span>Annually report</span>
+        </li>
+      </ul>
+      <div className="relative flex py-3">
+        <div className="flex-grow border-t border-gray-400"></div>
+      </div>
+      <div className="flex flex-col items-center mb-5">
+        <span className={`text-3xl font-medium ${v.color}`}>
+          IDR&nbsp;{v.price}
+        </span>
+        <span>per month</span>
+      </div>
+    </div>
   ));
 
   return (
